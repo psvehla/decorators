@@ -1,7 +1,9 @@
+"""Some code that demonstrates how decorators work in Python."""
 from datetime import datetime
 
 
 def my_decorator(func):
+    """Add some output before and after the function."""
     def wrapper():
         print("Something is happening before the function is called.")
         func()
@@ -10,6 +12,7 @@ def my_decorator(func):
 
 
 def not_during_the_night(func):
+    """Stay quiet at night."""
     def wrapper():
         if 7 <= datetime.now().hour < 22:
             func()
@@ -19,6 +22,7 @@ def not_during_the_night(func):
 
 
 def say_whee():
+    """Say 'Whee!'."""
     print("Whee!")
 
 
