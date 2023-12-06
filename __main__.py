@@ -26,5 +26,11 @@ def say_whee():
     print("Whee!")
 
 
+@my_decorator
+def say_whee_with_pie():
+    """Say 'Whee!' with pie (syntactic sugar)."""
+    print("Whee!")
+
+
 say_whee = my_decorator(say_whee)
 say_whee = not_during_the_night(say_whee)
