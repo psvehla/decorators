@@ -45,5 +45,12 @@ def greet(name):
     print(f"Hello, {name}.")
 
 
+@do_twice
+def return_greeting(name):
+    """Return a personalised greeting message."""
+    print("Creating greeting")
+    return f"Hi {name}."
+
+
 say_whee = my_decorator(say_whee)
 say_whee = not_during_the_night(say_whee)

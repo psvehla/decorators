@@ -5,5 +5,5 @@ def do_twice(func):
     """Do twice."""
     def wrapper_do_twice(*args, **kwargs):
         func(*args, **kwargs)
-        func(*args, **kwargs)
+        return func(*args, **kwargs)
     return wrapper_do_twice
