@@ -1,6 +1,6 @@
 """Some code that demonstrates how decorators work in Python."""
 from datetime import datetime
-from decorators import do_twice
+from src.decorators import do_twice
 
 
 def my_decorator(func):
@@ -37,6 +37,12 @@ def say_whee_with_pie():
 def say_whee_twice():
     """Say 'Whee!' twice."""
     print("Whee!")
+
+
+@do_twice
+def greet(name):
+    """Say hello in a personalised way."""
+    print(f"Hello, {name}.")
 
 
 say_whee = my_decorator(say_whee)
