@@ -1,5 +1,6 @@
 """Some code that demonstrates how decorators work in Python."""
 from datetime import datetime
+from decorators import do_twice
 
 
 def my_decorator(func):
@@ -29,6 +30,12 @@ def say_whee():
 @my_decorator
 def say_whee_with_pie():
     """Say 'Whee!' with pie (syntactic sugar)."""
+    print("Whee!")
+
+
+@do_twice
+def say_whee_twice():
+    """Say 'Whee!' twice."""
     print("Whee!")
 
 
