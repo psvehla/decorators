@@ -1,6 +1,6 @@
 """Some code that demonstrates how decorators work in Python."""
 from datetime import datetime
-from src.decorators import do_twice
+from src.decorators import do_twice, timer
 
 
 def my_decorator(func):
@@ -50,6 +50,13 @@ def return_greeting(name):
     """Return a personalised greeting message."""
     print("Creating greeting")
     return f"Hi {name}."
+
+
+@timer
+def waste_some_time(num_times):
+    """Kill some time."""
+    for _ in range(num_times):
+        sum([i**2 for i in range(10000)])
 
 
 say_whee = my_decorator(say_whee)
