@@ -1,6 +1,7 @@
 """Some code that demonstrates how decorators work in Python."""
+import math
 from datetime import datetime
-from src.decorators import do_twice, timer
+from src.decorators import do_twice, timer, debug
 
 
 def my_decorator(func):
@@ -57,6 +58,24 @@ def waste_some_time(num_times):
     """Kill some time."""
     for _ in range(num_times):
         sum([i**2 for i in range(10000)])
+
+
+@debug
+def make_greeting(name, age=None):
+    """Make a greeting based on name and maybe age."""
+    if age is None:
+        return f"Howdy {name}!"
+    else:
+        return f"Whoa {name}! {age} already, you are growing up!"
+
+
+# Apply a decorator to a standard library function.
+math.factorial = debug(math.factorial)
+
+
+def approximate_e(terms=18):
+    """Approximate e."""
+    return sum(1 / math.factorial(n) for n in range(terms))
 
 
 say_whee = my_decorator(say_whee)
