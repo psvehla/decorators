@@ -1,7 +1,7 @@
 """Some code that demonstrates how decorators work in Python."""
 import math
 from datetime import datetime
-from src.decorators import do_twice, timer, debug
+from src.decorators import do_twice, timer, debug, slow_down
 
 
 def my_decorator(func):
@@ -76,6 +76,16 @@ math.factorial = debug(math.factorial)
 def approximate_e(terms=18):
     """Approximate e."""
     return sum(1 / math.factorial(n) for n in range(terms))
+
+
+@slow_down
+def countdown(from_number):
+    """Countdown from the given number."""
+    if from_number < 1:
+        print("Liftoff!")
+    else:
+        print(from_number)
+        countdown(from_number - 1)
 
 
 say_whee = my_decorator(say_whee)

@@ -40,6 +40,16 @@ def debug(func):
     return wrapper_debug
 
 
+def slow_down(func):
+    """Sleep 1s before calling the function."""
+    @functools.wraps(func)
+    def wrapper_slow_down(*args, **kwargs):
+        time.sleep(1)
+        value = func(*args, **kwargs)
+        return value
+    return wrapper_slow_down
+
+
 def decorator(func):
     """Boilerplate for a decorator."""
     @functools.wraps(func)
