@@ -1,7 +1,8 @@
 """Some code that demonstrates how decorators work in Python."""
 import math
+import random
 from datetime import datetime
-from src.decorators import do_twice, timer, debug, slow_down
+from src.decorators import do_twice, timer, debug, slow_down, register, PLUGINS
 
 
 def my_decorator(func):
@@ -86,6 +87,25 @@ def countdown(from_number):
     else:
         print(from_number)
         countdown(from_number - 1)
+
+
+@register
+def say_hello(name):
+    """Say hello."""
+    return f"Hello {name}."
+
+
+@register
+def be_awesome(name):
+    """Declare our awesomeness."""
+    return f"Yo {name}, together we are awesome!"
+
+
+def randomly_greet(name):
+    """Greet in an unpredictable way."""
+    greeter, greeter_func = random.choice(list(PLUGINS.items()))
+    print(f"Using {greeter!r}")
+    return greeter_func(name)
 
 
 say_whee = my_decorator(say_whee)

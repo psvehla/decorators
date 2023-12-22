@@ -3,6 +3,9 @@ import functools
 import time
 
 
+PLUGINS = dict()
+
+
 def do_twice(func):
     """Do twice."""
     @functools.wraps(func)
@@ -59,3 +62,9 @@ def decorator(func):
         # Do somehting after
         return value
     return wrapper_decorator
+
+
+def register(func):
+    """Register a function as a plugin."""
+    PLUGINS[func.__name__] = func
+    return func
