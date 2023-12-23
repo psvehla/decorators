@@ -1,6 +1,8 @@
 """My decorators."""
 import functools
 import time
+from flask import redirect, url_for, request
+from flask_login import current_user
 
 
 PLUGINS = dict()
@@ -37,7 +39,6 @@ def debug(func):
         signature = ", ".join(args_repr + kwargs_repr)           # 3
         print(f"Calling {func.__name__}({signature})")
         value = func(*args, **kwargs)
-        # Do somehting before
         print(f"{func.__name__!r} returned {value!r}")
         return value
     return wrapper_debug
@@ -51,6 +52,16 @@ def slow_down(func):
         value = func(*args, **kwargs)
         return value
     return wrapper_slow_down
+
+
+def login_required(func):
+    """Ensure user is logged in before proceeding."""
+    @functools.wraps(func)
+    def wrapper_login_required(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return redirect(url_for("login", next=request.url))
+        return func(*args, **kwargs)
+    return wrapper_login_required
 
 
 def decorator(func):

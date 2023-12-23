@@ -2,7 +2,12 @@
 import math
 import random
 from datetime import datetime
-from src.decorators import do_twice, timer, debug, slow_down, register, PLUGINS
+from flask import Flask
+from src.decorators import (do_twice, timer, debug, slow_down, register,
+                            PLUGINS, login_required)
+
+
+app = Flask(__name__)
 
 
 def my_decorator(func):
@@ -110,3 +115,10 @@ def randomly_greet(name):
 
 say_whee = my_decorator(say_whee)
 say_whee = not_during_the_night(say_whee)
+
+
+@app.route("/secret")
+@login_required
+def secret():
+    """Render secret page."""
+    return "<p>This is a secret page.</p>"
