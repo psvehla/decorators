@@ -3,6 +3,7 @@ import math
 import random
 from datetime import datetime
 from flask import Flask
+from dataclasses import dataclass
 from src.decorators import (do_twice, timer, debug, slow_down, register,
                             PLUGINS, login_required)
 
@@ -122,3 +123,64 @@ say_whee = not_during_the_night(say_whee)
 def secret():
     """Render secret page."""
     return "<p>This is a secret page.</p>"
+
+
+class Circle:
+    """Represents a circle."""
+
+    def __init__(self, radius):
+        self._radius = radius
+
+    @property
+    def radius(self):
+        """Get value of radius."""
+        return self._radius
+
+    @radius.setter
+    def radius(self, value):
+        """Set radius, raise error if negative."""
+        if value >= 0:
+            self._radius = value
+        else:
+            raise ValueError("Radius must be positive.")
+
+    @property
+    def area(self):
+        """Calculate area inside circle."""
+        return self.pi() * self.radius**2
+
+    def cylinder_volume(self, height):
+        """Calculate volume of cylinder with circle as base."""
+        return self.area * height
+
+    @classmethod
+    def unit_circle(cls):
+        """Create a circle with radius 1."""
+        return cls(1)
+
+    @staticmethod
+    def pi():
+        """Vaue of π, could use math.pi instead though."""
+        return 3.1415926535
+
+
+class TimeWaster:
+    """A waster of time."""
+
+    @debug
+    def __init__(self, max_num):
+        self.max_num = max_num
+
+    @timer
+    def waste_time(self, num_times):
+        """Waste some time."""
+        for _ in range(num_times):
+            sum([i**2 for i in range(self.max_num)])
+
+
+@dataclass
+class PlayingCard:
+    """Represents a playing card."""
+
+    rank: str
+    suit: str
