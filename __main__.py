@@ -184,3 +184,17 @@ class PlayingCard:
 
     rank: str
     suit: str
+
+
+@debug
+@do_twice
+def greet2(name):
+    """Greet the caller."""
+    print(f"Hello {name}")
+
+
+@do_twice
+@debug
+def greet3(name):
+    """Greet the caller."""
+    print(f"Hello {name}")
