@@ -5,7 +5,7 @@ from datetime import datetime
 from flask import Flask
 from dataclasses import dataclass
 from src.decorators import (do_twice, timer, debug, slow_down, register,
-                            PLUGINS, login_required)
+                            PLUGINS, login_required, repeat)
 
 
 app = Flask(__name__)
@@ -196,5 +196,11 @@ def greet2(name):
 @do_twice
 @debug
 def greet3(name):
+    """Greet the caller."""
+    print(f"Hello {name}")
+
+
+@repeat(num_times=4)
+def greet4(name):
     """Greet the caller."""
     print(f"Hello {name}")
