@@ -95,6 +95,17 @@ def slow_down(func):
     return wrapper_slow_down
 
 
+def count_calls(func):
+    """Count the number of calls to this decorator. A stateful decorator."""
+    @functools.wraps(func)
+    def wrapper_count_calls(*args, **kwargs):
+        wrapper_count_calls.num_calls += 1
+        print(f"Call {wrapper_count_calls.num_calls} of {func.__name__!r}")
+        return func(*args, **kwargs)
+    wrapper_count_calls.num_calls = 0
+    return wrapper_count_calls
+
+
 def login_required(func):
     """Ensure user is logged in before proceeding."""
     @functools.wraps(func)

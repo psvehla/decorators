@@ -5,7 +5,8 @@ from datetime import datetime
 from flask import Flask
 from dataclasses import dataclass
 from src.decorators import (do_twice, timer, debug, slow_down, register,
-                            PLUGINS, login_required, repeat, repeat2, repeat3)
+                            PLUGINS, login_required, repeat, repeat2, 
+                            repeat3, count_calls)
 
 
 app = Flask(__name__)
@@ -228,3 +229,9 @@ def say_whee2():
 def greet6(name):
     """Greet the caller."""
     print(f"Hello {name}")
+
+
+@count_calls
+def say_whee3():
+    """Say whee."""
+    print("Whee!")
