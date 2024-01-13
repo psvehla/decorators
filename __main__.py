@@ -6,7 +6,7 @@ from flask import Flask
 from dataclasses import dataclass
 from src.decorators import (do_twice, timer, debug, slow_down, register,
                             PLUGINS, login_required, repeat, repeat2, 
-                            repeat3, count_calls)
+                            repeat3, count_calls, Counter, CountCalls)
 
 
 app = Flask(__name__)
@@ -233,5 +233,11 @@ def greet6(name):
 
 @count_calls
 def say_whee3():
+    """Say whee."""
+    print("Whee!")
+
+
+@CountCalls
+def say_whee4():
     """Say whee."""
     print("Whee!")

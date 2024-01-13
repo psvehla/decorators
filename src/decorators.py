@@ -131,3 +131,34 @@ def register(func):
     """Register a function as a plugin."""
     PLUGINS[func.__name__] = func
     return func
+
+
+class Counter:
+    """A counter decorator class."""
+
+    def __init__(self, start=0):
+        self.count = start
+
+    def __call__(self):
+        """Increment count and report count. Callable for decorator to work."""
+        self.count += 1
+        print(f"Current count is {self.count}")
+
+
+class CountCalls:
+    """A decorator class that counts calls to a function."""
+
+    def __init__(self, func):
+        functools.update_wrapper(self, func)
+        self.func = func
+        self.num_calls = 0
+
+    def __call__(self, *args, **kwargs):
+        """
+        Increment call count and report call count and function name.
+
+        Callable for decorator to work.
+        """
+        self.num_calls += 1
+        print(f"Call {self.num_calls} of {self.func.__name__!r}")
+        return self.func(*args, **kwargs)
