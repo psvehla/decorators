@@ -5,8 +5,9 @@ from datetime import datetime
 from flask import Flask
 from dataclasses import dataclass
 from src.decorators import (do_twice, timer, debug, slow_down, register,
-                            PLUGINS, login_required, repeat, repeat2, 
-                            repeat3, count_calls, Counter, CountCalls)
+                            PLUGINS, login_required, repeat, repeat2,
+                            repeat3, count_calls, Counter, CountCalls,
+                            slow_down2)
 
 
 app = Flask(__name__)
@@ -94,6 +95,16 @@ def countdown(from_number):
     else:
         print(from_number)
         countdown(from_number - 1)
+
+
+@slow_down2(rate=2)
+def countdown2(from_number):
+    """Countdown from the given number."""
+    if from_number < 1:
+        print("Liftoff!")
+    else:
+        print(from_number)
+        countdown2(from_number - 1)
 
 
 @register

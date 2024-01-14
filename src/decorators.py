@@ -31,18 +31,18 @@ def repeat(num_times):
 
 def repeat2(_func=None, *, num_times=2):
     """Repeat the function the specified or default number of times."""
-    def decorator_repeat(func):
+    def decorator_repeat2(func):
         @functools.wraps(func)
-        def wrapper_repeat(*args, **kwargs):
+        def wrapper_repeat2(*args, **kwargs):
             for _ in range(num_times):
                 value = func(*args, **kwargs)
             return value
-        return wrapper_repeat
+        return wrapper_repeat2
 
     if _func is None:
-        return decorator_repeat
+        return decorator_repeat2
     else:
-        return decorator_repeat(_func)
+        return decorator_repeat2(_func)
 
 
 def repeat3(_func=None, *, num_times=2):
@@ -93,6 +93,21 @@ def slow_down(func):
         value = func(*args, **kwargs)
         return value
     return wrapper_slow_down
+
+
+def slow_down2(_func=None, *, rate=1):
+    """Sleep the desired number of seconds before calling the function."""
+    def decorator_slow_down2(func):
+        @functools.wraps(func)
+        def wrapper_slow_down2(*args, **kwargs):
+            time.sleep(rate)
+            return func(*args, **kwargs)
+        return wrapper_slow_down2
+
+    if _func is None:
+        return decorator_slow_down2
+    else:
+        return decorator_slow_down2(_func)
 
 
 def count_calls(func):
