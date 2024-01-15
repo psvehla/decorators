@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from src.decorators import (do_twice, timer, debug, slow_down, register,
                             PLUGINS, login_required, repeat, repeat2,
                             repeat3, count_calls, Counter, CountCalls,
-                            slow_down2)
+                            slow_down2, singleton)
 
 
 app = Flask(__name__)
@@ -252,3 +252,10 @@ def say_whee3():
 def say_whee4():
     """Say whee."""
     print("Whee!")
+
+
+@singleton
+class TheOne:
+    """A Singleton."""
+
+    pass
