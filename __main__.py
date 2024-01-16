@@ -1,13 +1,14 @@
 """Some code that demonstrates how decorators work in Python."""
 import math
 import random
+import functools
 from datetime import datetime
 from flask import Flask
 from dataclasses import dataclass
 from src.decorators import (do_twice, timer, debug, slow_down, register,
                             PLUGINS, login_required, repeat, repeat2,
                             repeat3, count_calls, Counter, CountCalls,
-                            slow_down2, singleton)
+                            slow_down2, singleton, cache)
 
 
 app = Flask(__name__)
@@ -259,3 +260,29 @@ class TheOne:
     """A Singleton."""
 
     pass
+
+
+@count_calls
+def fibonacci(num):
+    """Calculate the sum of the Fibonacci sequence ending at num."""
+    if num < 2:
+        return num
+    return fibonacci(num - 1) + fibonacci(num - 2)
+
+
+@cache
+@count_calls
+def fibonacci2(num):
+    """Calculate the sum of the Fibonacci sequence ending at num."""
+    if num < 2:
+        return num
+    return fibonacci2(num - 1) + fibonacci2(num - 2)
+
+
+@functools.lru_cache(maxsize=4)
+def fibonacci3(num):
+    """Calculate the sum of the Fibonacci sequence ending at num."""
+    print(f"Calculating fibonacci({num})")
+    if num < 2:
+        return num
+    return fibonacci3(num - 1) + fibonacci3(num - 2)

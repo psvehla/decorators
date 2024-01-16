@@ -142,6 +142,18 @@ def singleton(cls):
     return wrapper_singleton
 
 
+def cache(func):
+    """Keep a cache of previous return values."""
+    @functools.wraps(func)
+    def wrapper_cache(*args, **kwargs):
+        cache_key = args + tuple(kwargs.items())
+        if cache_key not in wrapper_cache.cache:
+            wrapper_cache.cache[cache_key] = func(*args, **kwargs)
+        return wrapper_cache.cache[cache_key]
+    wrapper_cache.cache = dict()
+    return wrapper_cache
+
+
 def decorator(func):
     """Boilerplate for a decorator."""
     @functools.wraps(func)
