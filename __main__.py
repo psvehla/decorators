@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from src.decorators import (do_twice, timer, debug, slow_down, register,
                             PLUGINS, login_required, repeat, repeat2,
                             repeat3, count_calls, Counter, CountCalls,
-                            slow_down2, singleton, cache)
+                            slow_down2, singleton, cache, set_unit, use_unit)
 
 
 app = Flask(__name__)
@@ -286,3 +286,15 @@ def fibonacci3(num):
     if num < 2:
         return num
     return fibonacci3(num - 1) + fibonacci3(num - 2)
+
+
+@set_unit("cm^3")
+def volume(radius, height):
+    """Calculate the volume of a cylinder."""
+    return math.pi * radius**2 * height
+
+
+@use_unit("metres per second")
+def average_speed(distance, duration):
+    """Calculate the average speed."""
+    return distance / duration

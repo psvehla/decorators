@@ -1,6 +1,7 @@
 """My decorators."""
 import functools
 import time
+import pint
 from flask import redirect, url_for, request
 from flask_login import current_user
 
@@ -169,6 +170,27 @@ def register(func):
     """Register a function as a plugin."""
     PLUGINS[func.__name__] = func
     return func
+
+
+def set_unit(unit):
+    """Register a unit on a function."""
+    def decorator_set_unit(func):
+        func.unit = unit
+        return func
+    return decorator_set_unit
+
+
+def use_unit(unit):
+    """Have a function return a Quantity with the given unit."""
+    use_unit.ureg = pint.UnitRegistry()
+
+    def decorator_use_unit(func):
+        @functools.wraps(func)
+        def wrapper_use_unit(*args, **kwargs):
+            value = func(*args, **kwargs)
+            return value * use_unit.ureg(unit)
+        return wrapper_use_unit
+    return decorator_use_unit
 
 
 class Counter:
