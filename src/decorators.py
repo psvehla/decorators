@@ -2,7 +2,7 @@
 import functools
 import time
 import pint
-from flask import redirect, url_for, request
+from flask import redirect, url_for, request, abort
 from flask_login import current_user
 
 
@@ -130,6 +130,20 @@ def login_required(func):
             return redirect(url_for("login", next=request.url))
         return func(*args, **kwargs)
     return wrapper_login_required
+
+
+def validate_json(*expected_args):
+    """Validate that the required arguments have been passed in a POST body."""
+    def decorator_validate_json(func):
+        @functools.wraps(func)
+        def wrapper_validate_json(*args, **kwargs):
+            json_object = request.get_json()
+            for expected_arg in expected_args:
+                if expected_arg not in json_object:
+                    abort(400)
+            return func(*args, **kwargs)
+        return wrapper_validate_json
+    return decorator_validate_json
 
 
 def singleton(cls):
